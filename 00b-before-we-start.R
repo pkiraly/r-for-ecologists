@@ -51,4 +51,32 @@ url <- 'https://datacarpentry.org/R-ecology-lesson/code-handout.R'
 destfile <- 'data-carpentry-script.R'
 download.file(url, destfile)
 #' 5. (Optional) Set Preferences to 'Never' save workspace in RStudio.
-#' 
+
+#' File strutcure
+
+#' raw data
+dir.create('data_raw')
+
+#' intermediate datasets
+dir.create('data')
+
+#' outlines, drafts, and other text.
+dir.create('documents')
+
+#' your R scripts for different analyses
+dir.create('scripts')
+
+#' the figures that we will create
+dir.create('fig')
+
+#' Working directory
+getwd()
+wd <- getwd()
+wd
+setwd(wd)
+#' or File pane > navigate to a dir > "More" > "Set As Working Directory"
+
+#' Executing command
+#'  Ctrl + Enter
+#'  or "->Run" on the top right corner of this pane
+
