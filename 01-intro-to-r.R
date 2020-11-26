@@ -19,3 +19,23 @@ weight_kg <- 55
 #' - use nouns for object names
 #' - use verbs for function names
 #' - be consistent in the styling of your code
+
+# doesn't print anything
+weight_kg <- 55
+# but putting parenthesis around the call prints the value of `weight_kg`
+(weight_kg <- 55)
+# and so does typing the name of the object
+weight_kg
+
+# convert weight into pounds
+2.2 * weight_kg
+
+# change an object's value by assigning it a new one
+weight_kg <- 57.5
+2.2 * weight_kg
+
+# assigning a value to one object does not change the values of other objects
+weight_lb <- 2.2 * weight_kg
+weight_kg <- 100
+
+# What do you think is the current content of the object weight_lb? 126.5 or 220?
