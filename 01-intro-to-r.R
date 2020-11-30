@@ -112,3 +112,133 @@ weight_g
 #' check with typeof()
 typeof(weight_g)
 typeof(animals)
+
+#' complex data types (data structures):
+#' lists (list)
+#' matrices (matrix)
+#' data frames (data.frame)
+#' factors (factor)
+#' arrays (array)
+
+#' Challenge
+#' 
+#' 1. We’ve seen that atomic vectors can be of type character, numeric
+#'    (or double), integer, and logical. But what happens if we try to mix
+#'    these types in a single vector?
+#'    
+#' 2. What will happen in each of these examples? (hint: use class() to check the
+#'    data type of your objects):
+num_char <- c(1, 2, 3, "a")
+num_logical <- c(1, 2, 3, TRUE)
+char_logical <- c("a", "b", "c", TRUE)
+tricky <- c(1, 2, 3, "4")
+#'    Why do you think it happens?
+#'    
+#' 3. How many values in combined_logical are "TRUE" (as a character) in the
+#'    following example (reusing the 2 ..._logicals from above):
+combined_logical <- c(num_logical, char_logical)
+
+#' 4. You've probably noticed that objects of different types get converted 
+#'    into a single, shared type within a vector. In R, we call converting 
+#'    objects from one class into another class *coercion*. These conversions 
+#'    happen according to a hierarchy, whereby some types get preferentially 
+#'    coerced into other types. Can you draw a diagram that represents the 
+#'    hierarchy of how these data types are coerced?
+
+#' Subsetting vectors
+animals <- c("mouse", "rat", "dog", "cat")
+animals[2]
+
+#' select more
+animals[c(3, 2)]
+
+#' with repetitions
+more_animals <- animals[c(1, 2, 3, 2, 1, 4)]
+more_animals
+
+#' Conditional subsetting
+weight_g <- c(21, 34, 39, 54, 55)
+weight_g[c(TRUE, FALSE, FALSE, TRUE, TRUE)]
+
+# select only the values above 50
+# 1. return logicals with TRUE for the indices that meet the condition
+weight_g > 50
+
+# 2. select only the values above 50
+weight_g[weight_g > 50]
+
+#' combine multiple tests 
+#' & (both conditions are true, AND) or 
+#' | (at least one of the conditions is true, OR):
+weight_g[weight_g > 30 & weight_g < 50]
+weight_g[weight_g <= 30 | weight_g == 55]
+
+# nonsense condition
+weight_g[weight_g >= 30 & weight_g == 21]
+
+#' operators
+#' 
+#' > for "greater than",
+#' < stands for "less than",
+#' <= for "less than or equal to",
+#' >= for "greater than or equal to",
+#' == for "equal to"
+
+
+#' %in% test if any of the elements of a search vector are found:
+animals <- c("mouse", "rat", "dog", "cat", "cat")
+
+# return both rat and cat
+animals[animals == "cat" | animals == "rat"] 
+
+# get logical vector
+animals %in% c("rat", "cat", "dog", "duck", "goat")
+
+# get the values
+animals[animals %in% c("rat", "cat", "dog", "duck", "goat")]
+
+#' Challenge (optional)
+#' Can you figure out why "four" > "five" returns TRUE?
+
+#' Missing data
+#' Missing data are represented in vectors as NA
+#' na.rm = TRUE
+heights <- c(2, 4, 4, NA, 6)
+mean(heights)
+max(heights)
+mean(heights, na.rm = TRUE)
+max(heights, na.rm = TRUE)
+
+# is.na(), na.omit(), and complete.cases()
+
+## Extract those elements which are not missing values.
+heights[!is.na(heights)]
+
+# Returns the object with incomplete cases removed. 
+# The returned object is an atomic vector of type `"numeric"` (or #`"double"`).
+o <- na.omit(heights)
+o
+str(o)
+class(o)
+typeof(o)
+attributes(o)
+attr(o, "na.action")
+attr(attr(o, "na.action"), "class")
+attributes(o) <- NULL
+o
+
+## Extract those elements which are complete cases. 
+#The returned object is an atomic vector of type `"numeric"` (or #`"double"`).
+heights[complete.cases(heights)]
+
+#' Challenge
+
+#' 1. Using this vector of heights in inches, create a new vector, heights_no_na, 
+#'    with the NAs removed.
+heights <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, NA, 72, 65,
+             64, 70, 63, 65)
+
+#' 2. Use the function median() to calculate the median of the heights vector.
+#' 
+#' 3. Use R to figure out how many people in the set are taller than 67 inches.
+
