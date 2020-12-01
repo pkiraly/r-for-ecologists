@@ -1,0 +1,52 @@
+The lessons:
+https://datacarpentry.org/R-ecology-lesson/index.html
+
+The code mentioned in the lessons:
+https://github.com/pkiraly/r-for-ecologists
+
+Important shortcut keys in RStudio (Windows & Linux / Mac)
+	- Ctrl+Enter / Cmd+Return
+		Execute commands directly from the script.
+	- Ctrl+1 and Ctrl+2
+		Switch between Script and Console
+	- Esc
+		Cancel incomplete command
+	- Alt+- / Option+-
+		Enters a <- string
+	- Ctrl+Shift+m / Cmd+Shift+m
+		Enters a %>% (pipeline) string
+	- Ctrl+S / Cmd+S
+		Save the script
+	- Ctrl+Shift+n / Cmd+Shift+n
+		Create a new script
+	- Ctrls+Shift+c / Cmd+Shift+c
+		Add comment
+
+How to code in R?
+
+1. Install a software package called RStudio in your own machine.
+
+Please follow the instructions you can find here:
+https://datacarpentry.org/R-ecology-lesson/index.html#Install_R_and_RStudio
+
+2. Use an online RStudio server via the browser.
+
+a. A Göttingen based RStodio server
+https://rstudio.gwdg.de
+
+RStudio server requires a special user account. Please try if you can access the above mentioned URL. If not you can consult the following document:
+https://info.gwdg.de/dokuwiki/doku.php?id=en:services:application_services:high_performance_computing:account_activation
+or you can ask help from support@gwdg.de
+
+b. A general RStudio server
+https://rstudio.cloud
+
+3. Use an online Jupyter notebook:
+
+https://jupyter-cloud.gwdg.de/
+
+In Jupyter notebook each webpage is an interactive page, where you can write and execute program code. Among others you can create an R notebook as well. When you are logged into the server you will see a dashboard called Launcher. In the first line with the rightmost icon you can launch an R notebook.
+
+4. If none of them works, you can still use the R command line tool
+
+

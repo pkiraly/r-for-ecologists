@@ -161,7 +161,8 @@ weight_g <- c(21, 34, 39, 54, 55)
 weight_g[c(TRUE, FALSE, FALSE, TRUE, TRUE)]
 
 # select only the values above 50
-# 1. return logicals with TRUE for the indices that meet the condition
+# 1. return logicals with TRUE for the indices that meet 
+#    the condition
 weight_g > 50
 
 # 2. select only the values above 50
@@ -184,8 +185,8 @@ weight_g[weight_g >= 30 & weight_g == 21]
 #' >= for "greater than or equal to",
 #' == for "equal to"
 
-
-#' %in% test if any of the elements of a search vector are found:
+#' %in% test if any of the elements of a search vector
+#' are found:
 animals <- c("mouse", "rat", "dog", "cat", "cat")
 
 # return both rat and cat
@@ -215,7 +216,8 @@ max(heights, na.rm = TRUE)
 heights[!is.na(heights)]
 
 # Returns the object with incomplete cases removed. 
-# The returned object is an atomic vector of type `"numeric"` (or #`"double"`).
+# The returned object is an atomic vector of type `"numeric"`
+# (or #`"double"`).
 o <- na.omit(heights)
 o
 str(o)
@@ -233,12 +235,14 @@ heights[complete.cases(heights)]
 
 #' Challenge
 
-#' 1. Using this vector of heights in inches, create a new vector, heights_no_na, 
-#'    with the NAs removed.
+#' 1. Using this vector of heights in inches, create a new vector, 
+#'    heights_no_na, with the NAs removed.
 heights <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, NA, 72, 65,
              64, 70, 63, 65)
 
 #' 2. Use the function median() to calculate the median of the heights vector.
 #' 
 #' 3. Use R to figure out how many people in the set are taller than 67 inches.
-
+heights_no_na <- heights[!is.na(heights)]
+large_people <- heights_no_na[heights_no_na > 67]
+length(large_people)
