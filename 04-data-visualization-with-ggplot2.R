@@ -178,6 +178,7 @@ yearly_counts_graph <- surveys_complete %>%
 
 yearly_counts_graph
 
+
 #' Faceting
 #' faceting that allows the user to split one plot into multiple
 #' plots based on a factor included in the dataset.
@@ -266,12 +267,15 @@ ggplot(data = yearly_sex_counts,
        x = "Year of observation",
        y = "Number of individuals") +
   theme_bw() +
-  theme(axis.text.x = element_text(colour = "grey20", size = 12,
-                                   angle = 90, hjust = 0.5,
-                                   vjust = 0.5),
-        axis.text.y = element_text(colour = "grey20", size = 12),
-        strip.text = element_text(face = "italic"),
-        text = element_text(size = 16))
+  theme(
+    axis.text.x = element_text(
+      colour = "grey20", size = 12,
+      angle = 90, hjust = 0.5,
+      vjust = 0.5),
+    axis.text.y = element_text(colour = "grey20", size = 12),
+    strip.text = element_text(face = "italic"),
+    text = element_text(size = 16)
+  )
 
 #' save the theme
 grey_theme <- theme(
@@ -306,22 +310,22 @@ install.packages("patchwork")
 
 library(patchwork)
 
-plot1 <- ggplot(data = surveys_complete,
+plot_weight <- ggplot(data = surveys_complete,
                 aes(x = species_id, y = weight)) +
   geom_boxplot() +
   labs(x = "Species", y = expression(log[10](Weight))) +
   scale_y_log10()
 
-plot2 <- ggplot(data = yearly_counts,
+plot_count <- ggplot(data = yearly_counts,
                 aes(x = year, y = n, color = genus)) +
   geom_line() + 
   labs(x = "Year", y = "Abundance")
 
-plot1 / plot2 + plot_layout(heights = c(3, 2))
+plot_weight / plot_count + plot_layout(heights = c(3, 2))
 
 #' Exporting plots
 #' ggsave() function
-library(gridExtra)
+# library(gridExtra)
 
 my_plot <- ggplot(data = yearly_sex_counts, 
                   aes(x = year, y = n, color = sex)) +
@@ -337,11 +341,27 @@ my_plot <- ggplot(data = yearly_sex_counts,
         axis.text.y = element_text(colour = "grey20", size = 12),
         text = element_text(size = 16))
 
-ggsave("fig/name_of_file.png", my_plot, width = 15, height = 10)
+ggsave("name_of_file.png", my_plot, width = 15, height = 10)
 
 ## This also works for grid.arrange() plots
-combo_plot <- grid.arrange(
-  plot1, plot2,
-  ncol = 2, widths = c(4, 6))
-ggsave("fig/combo_plot_abun_weight.png", combo_plot,
-       width = 10, dpi = 300)
+# combo_plot <- grid.arrange(
+#   plot1, plot2,
+#   ncol = 2, widths = c(4, 6))
+# ggsave("fig/combo_plot_abun_weight.png", combo_plot,
+#        width = 10, dpi = 300)
+
+plot_combined <- plot_weight / plot_count + plot_layout(heights = c(3, 2))
+ggsave("plot_combined.png", plot_combined, width = 10, dpi = 300)
+
+#' Keypoints
+#'
+#' - start simple and build your plots iteratively
+#' - the ggplot() function initiates a plot, and geom_ functions
+#'   add representations of your data
+#' - use aes() when mapping a variable from the data to a part of the plot
+#' - use facet_ to partition a plot into multiple plots
+#'   based on a factor included in the dataset
+#' - use premade theme_ functions to broadly change appearance,
+#'   and the theme() function to fine-tune
+#' - the patchwork library can combine separate plots into a single figure
+#' - use ggsave() to save plots in your favorite format and dimensions

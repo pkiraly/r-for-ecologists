@@ -148,6 +148,10 @@ plots %>%
 #' Hint: Connect to the species table and write a query that joins the
 #' species and survey tables together to exclude all non-rodents. The query
 #' should return counts of rodents by year.
+
+#' tally(): the number of individuals in a group (df %>% summarise(n = n()))
+#' n_distinct(): the number of unique values found in a column
+
 #' 
 #' Optional: Write a query in SQL that will produce the same result. You can
 #' join multiple tables together using the following syntax where foreign
@@ -166,8 +170,6 @@ plots %>%
 #' Hint: Write a query that joins the species, plot, and survey tables
 #' together. The query should return counts of genus by plot type.
 
-#' tally(): the number of individuals in a group (df %>% summarise(n = n()))
-#' n_distinct(): the number of unique values found in a column
 
 species <- tbl(mammals, "species")
 unique_genera <- left_join(surveys, plots) %>%

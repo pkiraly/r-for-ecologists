@@ -5,10 +5,10 @@ library(tidyverse)
 
 #' dplyr
 #' - the most common data manipulation tasks
-#' - https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf
+#' - https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf
 #' tidyr
 #' - reshape your data
-#' - https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf
+#' - https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-import.pdf
 
 surveys <- read_csv("data_raw/portal_data_joined.csv")
 
@@ -177,15 +177,15 @@ surveys %>%
 #' 3. What was the heaviest animal measured in each year? Return the columns
 #'    year, genus, species_id, and weight.
 
-#' Reshaping with gather and spread
+#' Reshaping with pivot_longer and pivot_wider
 #' tidy dataset:
 #' - Each variable has its own column
 #' - Each observation has its own row
 #' - Each value must have its own cell
 #' - Each type of observational unit forms a table
 
-#' Spreading
-#' spread() takes three principal arguments:
+#' Pivoting from long to wide format
+#' pivot_wider() takes three principal arguments:
 #' - the data
 #' - the key column variable whose *values* will become new *column names*
 #' - the value column variable whose *values* will fill the new *column variables*
@@ -198,34 +198,34 @@ surveys_gw <- surveys %>%
 str(surveys_gw)
 surveys_gw
 
-# and now spread()
-surveys_spread <- surveys_gw %>%
-  spread(key = genus, value = mean_weight)
+# and now pivot_wider()
+surveys_wide <- surveys_gw %>%
+  pivot_wider(key = genus, value = mean_weight)
 
-str(surveys_spread)
-surveys_spread
+str(surveys_wide)
+surveys_wide
 
 # fill in the missing values
 surveys_gw %>%
-  spread(genus, mean_weight, fill = 0) %>%
+  pivot_wider(genus, mean_weight, fill = 0) %>%
   head()
 
-#' Gathering
-#' gather() takes four principal arguments:
+#' Pivoting from wide to long format
+#' pivot_longer() takes four principal arguments:
 #' - the data
 #' - the key column variable we wish to create from column names.
 #' - the values column variable we wish to create and fill with values
 #'   associated with the key.
 #' - the names of the columns we use to fill the key variable (or to drop).
 
-surveys_gather <- surveys_spread %>%
-  gather(key = "genus", value = "mean_weight", -plot_id)
+surveys_long <- surveys_wide %>%
+  pivot_longer(key = "genus", value = "mean_weight", -plot_id)
 
-str(surveys_gather)
+str(surveys_long)
 
 # specify columns
-surveys_spread %>%
-  gather(key = "genus", value = "mean_weight", Baiomys:Spermophilus) %>%
+surveys_wide %>%
+  pivot_longer(key = "genus", value = "mean_weight", Baiomys:Spermophilus) %>%
   head()
 
 #' Challenge
@@ -236,21 +236,21 @@ surveys_spread %>%
 #'    the number of unique genera within a particular chunk of data. It's
 #'    a powerful function! See ?n_distinct for more.
 #'
-#' 2. Now take that data frame and gather() it again, so each row is a unique
+#' 2. Now take that data frame and pivot_longer() it again, so each row is a unique
 #'    plot_id by year combination.
 #'
 #' 3. The surveys data set has two measurement columns: hindfoot_length and
 #'    weight. This makes it difficult to do things like look at the relationship
 #'    between mean values of each measurement per year in different plot types.
 #'    Let's walk through a common solution for this type of problem. First, use
-#'    gather() to create a dataset where we have a key column called measurement
+#'    pivot_longer() to create a dataset where we have a key column called measurement
 #'    and a value column that takes on the value of either hindfoot_length or
 #'    weight. Hint: You'll need to specify which columns are being gathered.
 #'
 #' 4. With this new data set, calculate the average of each measurement in each
-#'    year for each different plot_type. Then spread() them into a data set with
+#'    year for each different plot_type. Then pivot_wider() them into a data set with
 #'    a column for hindfoot_length and weight. Hint: You only need to specify
-#'    the key and value columns for spread().
+#'    the key and value columns for pivot_wider().
 
 #' Exporting data
 #' write_csv()
